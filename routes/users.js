@@ -12,9 +12,10 @@ router.get("/list", function (req, res) {
 });
 
 router.post('/new', function(req, res) {
-    let sql = `INSERT INTO users(full_name, created) VALUES (?)`;
+    let sql = `INSERT INTO users(full_name, qr_code, created) VALUES (?)`;
     let values = [
       req.body.full_name,
+      req.body.qr_code,
       req.body.created
     ];
     db.query(sql, [values], function(err, data, fields) {
