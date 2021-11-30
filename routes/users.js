@@ -31,6 +31,15 @@ router.get("/tracker_list", function (req, res) {
 	});
 });
 
+router.get("/tracker_list/:user_id", function (req, res) {
+	let userID = req.params.user_id;
+	let sql = `SELECT * FROM tracker_list WHERE user_id = ${userID}`;
+	db.query(sql, function (err, data, fields) {
+		if (err) throw err;
+		res.json({ data });
+	});
+});
+
 router.post("/tracker_new", function (req, res) {
 	let find = `SELECT * FROM tracker_list WHERE user_id = ${req.body.user_id}`;
 	db.query(find, function (err, result, fields) {
