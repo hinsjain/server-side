@@ -40,6 +40,14 @@ router.get("/tracker_list/:user_id", function (req, res) {
 	});
 });
 
+router.get("/verified_list", function (req, res) {
+	let sql = `SELECT u.full_name, tl.time_created FROM users u Join tracker_list tl on tl.user_id = u.id WHERE tl.verified = 1 order by tl.id`;
+	db.query(sql, function (err, data, fields) {
+		if (err) throw err;
+		res.json({ data });
+	});
+});
+
 router.post("/tracker_new", function (req, res) {
 	let find = `SELECT * FROM tracker_list WHERE user_id = ${req.body.user_id}`;
 	db.query(find, function (err, result, fields) {
